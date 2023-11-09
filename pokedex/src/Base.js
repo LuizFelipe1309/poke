@@ -1,27 +1,38 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  Image,
-  SafeAreaView,
-  TouchableOpacity,
-  SetImageAsset,
-  Alert,
-} from "react-native";
+import { StyleSheet, Text, Image, SafeAreaView, FlatList, View} from "react-native";
 
 
 export default function Base() {
-  
-  
+
+  const [poke, setpoke] = useState([
+    { id: 1, name: 'Bulbassaur', img: require('../assets/sprite.png'),},
+    { id: 2, name: 'Ivyssaur', img: require('../assets/sprite.png'), },
+    { id: 3, name: 'Venossaur', img: require('../assets/sprite.png'), },
+    { id: 4, name: 'Charmander', img: require('../assets/sprite.png'), },
+    { id: 5, name: 'Charmeleon', img: require('../assets/sprite.png'), },
+    { id: 6, name: 'Charizard', img: require('../assets/sprite.png'), },
+    { id: 7, name: 'Squirtle', img: require('../assets/sprite.png'), },
+    { id: 8, name: 'Wartortle', img: require('../assets/sprite.png'), },
+    { id: 9, name: 'Blastoise', img: require('../assets/sprite.png'), },
+    { id: 10, name: 'Caterpi', img: require('../assets/sprite.png'), },
+    { id: 11, name: 'Metapod', img: require('../assets/sprite.png'), },
+    { id: 12, name: 'Butterfree', img: require('../assets/sprite.png'), },
+  ])
+
+
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar />
-      <Image style={styles.img} source={require("./images/pokeback.jpeg")} />
+      <StatusBar/>
+      <Image style={styles.img} source={require('../assets/pokeback.jpeg')} />
 
-    <SafeAreaView style={styles.b}>
-      <Text>L</Text>
-    </SafeAreaView>
+      <SafeAreaView style={styles.flatview}>
+        <FlatList
+        showsVerticalScrollIndicator = {false}
+        data={poke}
+        renderItem={ ({item}) => <Pokemon data={item}/>}
+        />
+      </SafeAreaView>
     </SafeAreaView>
   );
 }
@@ -35,72 +46,37 @@ const styles = StyleSheet.create({
   img: {
     position: "absolute",
   },
-  b: {
-    height: 700,
-    top: -13,
-    width: '100%',
+  flatview: {
+    top: -6,
+    height: '81%',
+    width: '95%',
+    alignItems: "center"
   },
-
-  viewbutton1: {
-    flexDirection: "row",
-    top: 120,
+  textpoke1: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginLeft: 10,
+    paddingTop: 25
   },
-  textbnt: {
-    fontWeight: "bold",
-    fontSize: 30,
-    padding: 5,
+  textpoke2: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginLeft: 10,
+    paddingBottom: 5,
   },
-  button1: {
-    right: 13,
-    borderStyle: "solid",
-    borderRadius: 15,
-    borderWidth: 4,
-    backgroundColor: "#ff0000",
-  },
-  button2: {
-    left: 13,
-    borderStyle: "solid",
-    borderRadius: 15,
-    borderWidth: 4,
-    backgroundColor: "#ff0000",
-  },
-
-  mainview: {
-    alignItems: "center",
-  },
-  mainimg: {
-    width: 250,
-    height: 250,
-    top: -50,
-  },
-
-  poketype1: {
+  imgpoke: {
+    width: 50,
     height: 50,
-    width: 130,
-    right: 10,
-  },
-  poketype2: {
-    height: 50,
-    width: 130,
-    left: 10,
-  },
-
-  cont: {
-    flexDirection: "row",
-  },
-  maintext1: {
-    top: 20,
-    fontSize: 25,
-    fontWeight: "bold",
-    textAlign: "justify",
-    paddingTop: 20,
-  },
-  maintext2: {
-    top: 20,
-    fontSize: 25,
-    fontWeight: "bold",
-    textAlign: "justify",
-    paddingTop: 20,
-    left: 20,
-  },
+    marginBottom: 10,
+  }
 });
+
+function Pokemon(props){
+  return(
+    <View>
+      <Text style={styles.textpoke1}>ID: {props.data.id}</Text>
+      <Text style={styles.textpoke2}>Name: {props.data.name}</Text>
+      <Image style={styles.imgpoke} source={props.data.img}/>
+    </View>
+  )
+}
